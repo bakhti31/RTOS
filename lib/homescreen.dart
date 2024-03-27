@@ -7,17 +7,17 @@ import "package:rtos/equipment.dart";
 import "package:rtos/sparepart.dart";
 import "package:rtos/monitoring.dart";
 
-List<TextEditingController>? text_controllers;
+List<TextEditingController>? textControllers;
 AlertDialog? dialogs;
 
 void setDialogController(
     List<TextEditingController> controllers, AlertDialog alertdialog) {
-  text_controllers = controllers;
+  textControllers = controllers;
   dialogs = alertdialog;
 }
 
 Future<void> _add(BuildContext context) async {
-  for (var element in text_controllers!) {
+  for (var element in textControllers!) {
     element;
   }
   return showDialog(

@@ -14,23 +14,19 @@ class SparePartsList extends StatefulWidget {
 
 class _SparePartsListState extends State<SparePartsList> {
   List<dynamic> _sparePartsList = [];
-
-  late List<TextEditingController> text_controller;
-
+  late List<TextEditingController> textController;
   late AlertDialog dialog;
-  // (controller, dialog) = _addSparepart();
   @override
   void initState() {
     super.initState();
     _getSparePartsList();
-    // (controller, dialog) = _addSparepart();
     _addSparepart();
-    setDialogController(text_controller, dialog);
+    setDialogController(textController, dialog);
   }
 
   Future<void> _getSparePartsList() async {
     final response = await http
-        .get(Uri.parse('http://192.168.1.250/rtos/api.php?spareparts=1'));
+        .get(Uri.parse('http://192.168.1.250/rtos/api.php?sparepart=1'));
     debugPrint(response.body);
     if (response.statusCode == 200) {
       setState(() {
@@ -52,7 +48,7 @@ class _SparePartsListState extends State<SparePartsList> {
       quantityController,
       locationController
     ];
-
+    // Initializing The Controller for textbox
     AlertDialog dialogs = AlertDialog(
       title: const Text('Add Sparepart'),
       content: SingleChildScrollView(
@@ -111,8 +107,8 @@ class _SparePartsListState extends State<SparePartsList> {
         ),
       ],
     );
-    // return (controllers, dialogs);
-    text_controller = controllers;
+    //initializing the Box Of alert after clicking the Plus Button
+    textController = controllers;
     dialog = dialogs;
   }
 
