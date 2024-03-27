@@ -348,12 +348,12 @@ switch ($endpoint) {
                 echo json_encode(array("error" => "Metode HTTP tidak didukung"));
         }
         break;
-    case 'condition-monitoring':
+    case 'monitoringcondition':
         switch ($method) {
             case 'GET':
                 // Mendapatkan daftar semua data monitoring condition
                 $conn = connectDB();
-                $sql = "SELECT * FROM Condition_Monitoring";
+                $sql = "SELECT * FROM condition_monitoring";
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
                     $data = array();
@@ -367,57 +367,32 @@ switch ($endpoint) {
                 $conn->close();
                 break;
             case 'POST':
-                // Menambahkan data monitoring condition baru
-                // Implementasi POST untuk condition monitoring
+                // Menambahkan sparepart baru
+                $input = json_decode(file_get_contents('php://input'), true);
+                $conn = connectDB();
+                $equipmentId = $input['eqiupment_id'];
+                $temperature = $input['temperature'];
+                $pressure = $input['pressure'];
+                $vibration = $input['vibration'];
+                $otherParameters = $input['other_parameters'];
+                $sql = "INSERT INTO condition_monitoring (equipment_id, temperature, pressure, vibration, other_parameters) VALUES ('$equipmentId', '$temperature', '$pressure', '$vibration','$otherParameters')";
+                if ($conn->query($sql) === TRUE) {
+                    echo json_encode(array("message" => "Data berhasil ditambahkan"));
+                } else {
+                    echo json_encode(array("error" => "Error: " . $sql . "<br>" . $conn->error));
+                }
+                $conn->close();
                 break;
             default:
                 echo json_encode(array("error" => "Metode HTTP tidak didukung"));
         }
         break;
     case 'sparepart':
-    switch ($method) {
-        case 'GET':
-            // Mendapatkan daftar semua sparepart
-            $conn = connectDB();
-            $sql = "SELECT * FROM Spare_Parts";
-            $result = $conn->query($sql);
-            if ($result->num_rows > 0) {
-                $data = array();
-                while ($row = $result->fetch_assoc()) {
-                    $data[] = $row;
-                }
-                echo json_encode($data);
-            } else {
-                echo json_encode(array());
-            }
-            $conn->close();
-            break;
-        case 'POST':
-            // Menambahkan sparepart baru
-            $input = json_decode(file_get_contents('php://input'), true);
-            $conn = connectDB();
-            $part_name = $input['part_name'];
-            $part_number = $input['part_number'];
-            $quantity_available = $input['quantity_available'];
-            $location = $input['location'];
-            $sql = "INSERT INTO Spare_Parts (part_name, part_number, quantity_available, location) VALUES ('$part_name', '$part_number', '$quantity_available', '$location')";
-            if ($conn->query($sql) === TRUE) {
-                echo json_encode(array("message" => "Data berhasil ditambahkan"));
-            } else {
-                echo json_encode(array("error" => "Error: " . $sql . "<br>" . $conn->error));
-            }
-            $conn->close();
-            break;
-        default:
-            echo json_encode(array("error" => "Metode HTTP tidak didukung"));
-    }
-    break;
-    case 'sparepart':
         switch ($method) {
             case 'GET':
                 // Mendapatkan daftar semua sparepart
                 $conn = connectDB();
-                $sql = "SELECT * FROM Spare_Parts";
+                $sql = "SELECT * FROM spare_parts";
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
                     $data = array();

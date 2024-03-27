@@ -1,7 +1,5 @@
 // import "dart:js";
 
-import "dart:js";
-
 import 'package:flutter/material.dart';
 import "package:rtos/equipment.dart";
 import "package:rtos/sparepart.dart";
