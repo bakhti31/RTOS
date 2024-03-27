@@ -25,8 +25,8 @@ class _SparePartsListState extends State<SparePartsList> {
   }
 
   Future<void> _getSparePartsList() async {
-    final response = await http
-        .get(Uri.parse('http://192.168.1.250/rtos/api.php?sparepart=1'));
+    final response = await http.get(Uri.parse(
+        'http://monitoring-apps.infinityfreeapp.com/api.php?sparepart=1'));
     debugPrint(response.body);
     if (response.statusCode == 200) {
       setState(() {
@@ -83,7 +83,8 @@ class _SparePartsListState extends State<SparePartsList> {
         TextButton(
           onPressed: () async {
             final response = await http.post(
-              Uri.parse('http://192.168.1.250/rtos/api.php?sparepart=1'),
+              Uri.parse(
+                  'http://monitoring-apps.infinityfreeapp.com/api.php?sparepart=1'),
               headers: <String, String>{
                 'Content-Type': 'application/json; charset=UTF-8',
               },

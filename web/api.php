@@ -250,10 +250,10 @@ header('Content-Type: application/json');
 
 // Fungsi untuk membuat koneksi ke database MySQL
 function connectDB() {
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "rtos";
+    $servername = "sql201.infinityfree.com";
+    $username = "if0_36249774";
+    $password = "FuckTeh123";
+    $dbname = "if0_36249774_rtos";
 
     $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -262,6 +262,57 @@ function connectDB() {
         die("Koneksi gagal: " . $conn->connect_error);
     }
 
+    $sql_equipment = "CREATE TABLE Equipment (
+        equipment_id INT AUTO_INCREMENT PRIMARY KEY,
+        equipment_name VARCHAR(255),
+        equipment_type VARCHAR(100),
+        serial_number VARCHAR(50),
+        location VARCHAR(100)
+    )";
+
+    $sql_maintenance_schedule = "CREATE TABLE Maintenance_Schedule (
+        schedule_id INT AUTO_INCREMENT PRIMARY KEY,
+        equipment_id INT,
+        maintenance_type VARCHAR(100),
+        last_maintenance_date DATE,
+        next_maintenance_date DATE,
+        maintenance_description TEXT,
+        FOREIGN KEY (equipment_id) REFERENCES Equipment(equipment_id)
+    )";
+
+    $sql_condition_monitoring = "CREATE TABLE Condition_Monitoring (
+        monitoring_id INT AUTO_INCREMENT PRIMARY KEY,
+        equipment_id INT,
+        timestamp DATETIME,
+        temperature DECIMAL(5,2),
+        pressure DECIMAL(8,2),
+        vibration DECIMAL(8,2),
+        other_parameters TEXT,
+        FOREIGN KEY (equipment_id) REFERENCES Equipment(equipment_id)
+    )";
+
+    $sql_repair_history = "CREATE TABLE Repair_History (
+        repair_id INT AUTO_INCREMENT PRIMARY KEY,
+        equipment_id INT,
+        repair_date DATE,
+        issue_description TEXT,
+        repair_action TEXT,
+        downtime_hours DECIMAL(6,2),
+        FOREIGN KEY (equipment_id) REFERENCES Equipment(equipment_id)
+    )";
+
+    $sql_spareparts = "CREATE TABLE Spare_Parts (
+        part_id INT AUTO_INCREMENT PRIMARY KEY,
+        part_name VARCHAR(255),
+        part_number VARCHAR(50),
+        quantity_available INT,
+        location VARCHAR(100)
+    )";
+
+    if ($conn->query($sql_equipment) === FALSE || $conn->query($sql_condition_monitoring) === FALSE || $conn->query($sql_maintenance_schedule) === FALSE|| $conn->query($sql_repair_history) === FALSE|| $conn->query($sql_spareparts) === FALSE) {
+        http_response_code(500);
+        echo json_encode(['error' => 'Connection Error: ' . $conn->error]);
+    }
     return $conn;
 }
 
