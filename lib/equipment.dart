@@ -73,7 +73,7 @@ class _EquipmentListState extends State<EquipmentList> {
           onPressed: () async {
             final response = await http.post(
               Uri.parse(
-                  'http://monitoring-apps.infinityfreeapp.com/api.php?equipment=1'),
+                  'https://manajemen-sdm.000webhostapp.com/main/api.php?equipment=1'),
               headers: <String, String>{
                 'Content-Type': 'application/json; charset=UTF-8',
               },
@@ -125,7 +125,7 @@ class _EquipmentListState extends State<EquipmentList> {
 
   Future<void> _getEquipmentList() async {
     final response = await http.get(Uri.parse(
-        'http://monitoring-apps.infinityfreeapp.com/api.php?equipment=1'));
+        'https://manajemen-sdm.000webhostapp.com/main/api.php?equipment=1'));
     debugPrint(response.body);
     if (response.statusCode == 200) {
       setState(() {

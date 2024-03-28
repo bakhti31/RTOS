@@ -26,7 +26,7 @@ class _SparePartsListState extends State<SparePartsList> {
 
   Future<void> _getSparePartsList() async {
     final response = await http.get(Uri.parse(
-        'http://monitoring-apps.infinityfreeapp.com/api.php?sparepart=1'));
+        'https://manajemen-sdm.000webhostapp.com/main/api.php?sparepart=1'));
     debugPrint(response.body);
     if (response.statusCode == 200) {
       setState(() {
@@ -84,7 +84,7 @@ class _SparePartsListState extends State<SparePartsList> {
           onPressed: () async {
             final response = await http.post(
               Uri.parse(
-                  'http://monitoring-apps.infinityfreeapp.com/api.php?sparepart=1'),
+                  'https://manajemen-sdm.000webhostapp.com/main/api.php?sparepart=1'),
               headers: <String, String>{
                 'Content-Type': 'application/json; charset=UTF-8',
               },

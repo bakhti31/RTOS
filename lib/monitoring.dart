@@ -78,7 +78,7 @@ class _MonitoringConditionListState extends State<MonitoringConditionList> {
           onPressed: () async {
             final response = await http.post(
               Uri.parse(
-                  'http://monitoring-apps.infinityfreeapp.com/api.php?monitoringcondition=1'),
+                  'https://manajemen-sdm.000webhostapp.com/main/api.php?monitoringcondition=1'),
               headers: <String, String>{
                 'Content-Type': 'application/json; charset=UTF-8',
               },
@@ -130,7 +130,7 @@ class _MonitoringConditionListState extends State<MonitoringConditionList> {
 
   Future<void> _getMonitoringConditionList() async {
     final response = await http.get(Uri.parse(
-        'http://monitoring-apps.infinityfreeapp.com/api.php?monitoringcondition=1'));
+        'https://manajemen-sdm.000webhostapp.com/main/api.php?monitoringcondition=1'));
     debugPrint(response.body);
     if (response.statusCode == 200) {
       setState(() {
