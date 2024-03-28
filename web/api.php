@@ -404,7 +404,7 @@ switch ($endpoint) {
             case 'GET':
                 // Mendapatkan daftar semua data monitoring condition
                 $conn = connectDB();
-                $sql = "SELECT * FROM condition_monitoring";
+                $sql = "SELECT * FROM Condition_Monitoring";
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
                     $data = array();
@@ -443,7 +443,7 @@ switch ($endpoint) {
             case 'GET':
                 // Mendapatkan daftar semua sparepart
                 $conn = connectDB();
-                $sql = "SELECT * FROM spare_parts";
+                $sql = "SELECT * FROM Spare_Parts";
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
                     $data = array();
